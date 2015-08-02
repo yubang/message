@@ -1,0 +1,39 @@
+create table if not exists message_account(
+    id int(11) auto_increment,
+    username varchar(20) not null comment '用户名',
+    password varchar(32) not null comment '密码',
+    primary key(id),
+    unique(username)
+);
+
+create table if not exists message_app(
+    id int(11) auto_increment,
+    appName varchar(50) not null comment 'app名字',
+    appKey varchar(32) not null comment 'app key每个app特有',
+    createTime datetime not null comment '应用创建时间',
+    status tinyint(1) not null comment '0为启用，1为禁用，2为删除',
+    primary key(id),
+    unique(appKey)
+);
+
+create table if not exists message_token(
+    id int(11) auto_increment,
+    appId int(11) not null comment 'app的id',
+    token varchar(32) not null comment 'app token',
+    ableTime dateTime not null comment '失效时间',
+    primary key(id),
+    unique(appId,token)
+);
+
+create table if not exists message_data(
+    id int(11) auto_increment,
+    appId int(11) not null comment 'app id',
+    title varchar(50) not null comment '标题',
+    message text not null comment '内容',
+    messageType int(11) not null comment '信息类型 0需要显示在信息栏，1不需要显示在信息栏',
+    createTime datetime not null comment '创建时间',
+    getTime datetime comment '获取信息时间',
+    primary key(id)
+);
+
+insert into message_account(username,password) values('root','63a9f0ea7bb98050796b649e85481845');
