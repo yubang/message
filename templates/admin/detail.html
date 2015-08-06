@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{app.appName}}</title>
+    </head>
+    <body>
+        <a href="/admin/">返回</a>
+        <p>应用名：{{app.appName}}</p>
+        <p>应用key：{{app.appKey}}</p>
+
+        <form action="/admin/addToken/{{app.id}}" method="post">
+            <input type="text" name="token" maxlength="32" placeholder="请输入应用token" required>
+            <input type="datetime-local" name="ableTime" required>
+            <input type="submit" value="添加应用token">
+        </form>
+
+        <hr>
+        {% for tokenObj in appTokens %}
+        <p>
+            应用token：{{tokenObj.token}}
+            失效时间：{{tokenObj.ableTime| date:"Y年m月d日 H时i分s秒"}}
+            <a href="/admin/deleteToken/{{app.id}}/{{tokenObj.id}}">删除</a>
+        </p>
+        {% endfor %}
+    </body>
+</html>
