@@ -21,3 +21,16 @@ class TokenModel(models.Model):
 
     class Meta(object):
         db_table = "message_token"
+
+
+class DataModel(models.Model):
+    "推送信息类"
+    appId = models.IntegerField(max_length=11)
+    title = models.CharField(max_length=50)
+    message = models.TextField()
+    messageType = models.IntegerField()
+    createTime = models.DateTimeField()
+    getTime = models.DateTimeField()
+
+    class Meta:
+        db_table = "message_data"

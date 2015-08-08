@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>测试页面</title>
+    </head>
+    <body>
+
+        <div style="width:50%;height:100%;float:left;text-align:center;">
+            <input type="text" id="title"><br><br>
+            <textArea id="message"></textArea><br><br>
+            <select id="messageType">
+                <option value="0">通知栏显示</option>
+                <option value="1">不在通知栏显示</option>
+            </select><br><br>
+            <a href="javascript:sendMessage();">发送信息</a>
+        </div>
+        <div id="messageDiv" style="width:50%;height:100%;float:right;text-align:center;"></div>
+
+        <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+
+            function sendMessage(){
+                var title = $("#title").val();
+                var message = $("#message").val();
+                var messageType = $("#messageType").val();
+
+                $.post("/api/pushMessage/456373fd4f304564b5411fbc3c0fee1b/abc",{"title":title,"message":message,"messageType":messageType},function(data){
+                    html = "<p>code：" + data['code'] + "</p>";
+                    html = html + "<p>message：" + data['messages'] + "</p>";
+                    var myDate = new Date();
+                    var d = myDate.getFullYear() + "年" + myDate.getMonth() + "月" + myDate.getDate() + "日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + myDate.getHours() + "时" + myDate.getMinutes() + "分" + myDate.getSeconds() + "秒";
+                    html = html + "<p>time：" + d + "</p>";
+
+                    $("#messageDiv").html(html);
+                });
+
+            }
+
+        </script>
+    </body>
+</html>
