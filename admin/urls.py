@@ -8,7 +8,8 @@ urlpatterns = patterns('admin.views',
     url(r'^deleteApp/(?P<app_id>\d+)$', 'deleteApp'),
     url(r'^detail/(?P<app_id>\d+)$', 'detail'),
     url(r'^addToken/(?P<app_id>\d+)$', 'addToken'),
-    url(r'deleteToken/(?P<app_id>\d+)/(?P<token_id>\d+)$', 'deleteToken'),
+    url(r'^deleteToken/(?P<app_id>\d+)/(?P<token_id>\d+)$', 'deleteToken'),
+    url(r'^account$', 'account'),
 )
 
 

@@ -1,14 +1,15 @@
-#coding:UTF-8
+# coding:UTF-8
 
 import time
 import hashlib
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
-from message.models import AppModel, TokenModel
+from message.models import AppModel, TokenModel, AccountModel
 
 
 def index(request):
-    apps = AppModel.objects.filter(status=0)
+    apps = AppModel.objects.order_by("-id").filter(status=0)
     return render_to_response("admin/index.html", {'apps': apps})
 
 
@@ -45,5 +46,28 @@ def deleteToken(request, app_id, token_id):
     "删除应用token"
     TokenModel.objects.filter(id=token_id, appId=app_id).delete()
     return HttpResponseRedirect("/admin/detail/%s" % (app_id,))
+
+def account(request):
+    "账号登录"
+
+    if request.method == "GET":
+        error = request.GET.get("error", 0)
+        return render_to_response("admin/account.html", {})
+    else:
+        username = request.POST.get("username", None)
+        password = request.POST.get("password", None)
+
+        try:
+            account_model = AccountModel.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect("/admin/account?error=1")
+
+        if account_model.password == hashlib.md5(password).hexdigest():
+            return HttpResponseRedirect("/admin/")
+        else:
+            return HttpResponseRedirect("/admin/account?error=2")
+
+
+
 
 

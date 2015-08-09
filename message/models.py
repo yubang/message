@@ -34,3 +34,12 @@ class DataModel(models.Model):
 
     class Meta:
         db_table = "message_data"
+
+
+class AccountModel(models.Model):
+    "后台管理员账号模型"
+    username = models.CharField(max_length=20)
+    password = models.CharField(max_length=32)
+
+    class Meta:
+        db_table = "message_account"
