@@ -63,9 +63,17 @@ def account(request):
             return HttpResponseRedirect("/admin/account?error=1")
 
         if account_model.password == hashlib.md5(password).hexdigest():
+            request.session['admin'] = time.time()
             return HttpResponseRedirect("/admin/")
         else:
             return HttpResponseRedirect("/admin/account?error=2")
+
+
+def exit_account(request):
+    "用户退出"
+    if 'admin' in request.session:
+        del request.session['admin']
+    return HttpResponseRedirect("/admin/account")
 
 
 

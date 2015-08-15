@@ -10,6 +10,7 @@ urlpatterns = patterns('admin.views',
     url(r'^addToken/(?P<app_id>\d+)$', 'addToken'),
     url(r'^deleteToken/(?P<app_id>\d+)/(?P<token_id>\d+)$', 'deleteToken'),
     url(r'^account$', 'account'),
+    url(r'^exit$', 'exit_account'),
 )
 
 
